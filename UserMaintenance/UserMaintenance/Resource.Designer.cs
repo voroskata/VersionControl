@@ -70,6 +70,15 @@ namespace UserMaintenance {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        internal static string String2 {
+            get {
+                return ResourceManager.GetString("String2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string String3 {
