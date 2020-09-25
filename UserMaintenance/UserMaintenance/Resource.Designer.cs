@@ -86,5 +86,14 @@ namespace UserMaintenance {
                 return ResourceManager.GetString("String3", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string String4 {
+            get {
+                return ResourceManager.GetString("String4", resourceCulture);
+            }
+        }
     }
 }

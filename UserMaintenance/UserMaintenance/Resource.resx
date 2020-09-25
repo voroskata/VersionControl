@@ -129,4 +129,8 @@
     <value>Add</value>
     <comment>Hozzáadás</comment>
   </data>
+  <data name="String4" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Törlés</comment>
+  </data>
 </root>
