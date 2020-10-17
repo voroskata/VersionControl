@@ -18,6 +18,7 @@ namespace gyak_6
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
 
+        BindingList<string> Currencies = new BindingList<string>();
 
         public Form1()
         {
