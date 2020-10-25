@@ -29,12 +29,15 @@ namespace gyak_7
             Population = GetPopulation(@"C:\Windows\Temp\nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Windows\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Windows\Temp\halál.csv");
+        }
 
-            for (int year = 2005; year <= 2024; year++)
+        private void Simulation()
+        {
+            for (int year = 2005; year <= int.Parse(numericUpDown1.Value.ToString()); year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-                    // Ide jön a szimulációs lépés
+                    SimStep(year, Population[i]);
                 }
 
                 int nbrOfMales = (from x in Population
@@ -109,6 +112,59 @@ namespace gyak_7
             }
 
             return deaths;
+        }
+
+        public void SimStep(int year, Person person)
+        {
+            if (!person.IsAlive) return;
+
+            byte age = (byte)(year - person.BirthYear);
+
+            double pDeath = (from x in DeathProbabilities
+                             where x.Gender == person.Gender && x.Age == age
+                             select x.P).FirstOrDefault();
+
+            if (rng.NextDouble() <= pDeath)
+                person.IsAlive = false;
+
+            if (person.IsAlive && person.Gender == Gender.Female)
+            {
+                double pBirth = (from x in BirthProbabilities
+                                 where x.Age == age
+                                 select x.P).FirstOrDefault();
+
+                if (rng.NextDouble() <= pBirth)
+                {
+                    Person newborn = new Person();
+                    newborn.BirthYear = year;
+                    newborn.NbrOfChildren = 0;
+                    newborn.Gender = (Gender)(rng.Next(1, 3));
+                    Population.Add(newborn);
+                }
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+
+            Simulation();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            else
+            {
+                textBox1.Text = @"C:\Windows\Temp\nép.csv";
+            }
+           
+
         }
     }
 }
