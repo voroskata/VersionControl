@@ -9,6 +9,6 @@ namespace gyak_7.Entities
     public enum Gender
     {
         Male = 1,
-        Famela = 2
+        Female = 2
     }
 }
